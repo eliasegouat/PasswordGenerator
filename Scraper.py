@@ -1,6 +1,6 @@
 from pytrends.request import TrendReq
 
-#Connect to Google
+#Google connection
 pytrends = TrendReq(hl='en-US', tz=360)
 
 #Payload creation
