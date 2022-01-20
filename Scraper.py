@@ -1,26 +1,21 @@
 from pytrends.request import TrendReq
 
 # Google connection
-pytrends = TrendReq(hl='en-US', tz=360)
-
-# Trending searches in real time for a specified country
-def listTrends(country_name):
-    print(pytrends.trending_searches(pn=country_name))
-    
-# Payload building with a keywords list or categories
-def buildPayload(keywords_list, geoposition):
-    pytrends.build_payload(keywords_list, cat=0, timeframe='today 5-y', geo=geoposition, gprop='')
+pytrends = TrendReq(hl='en-US', tz=360, retries=2, timeout=(10,25))
 
 # Selection of a specific country for search
 def chooseCountry():
     # Country definition
-    global country
+    global country, geopos
     
     # Country Acquisition
-    country_id = input(" Enter a country number : France = 1, USA = 2, Japan = 3, Russia = 4, Global = other")
-
-    # Country Restitution
-    print(" You choosed the number "+country_id)
+    country_id = input("""Countries :
+    1. France
+    2. USA
+    3. Japan
+    4. Russia
+    5. Global
+    Enter a country number : """)
 
     if country_id == '1':
         country = 'france'
@@ -38,20 +33,42 @@ def chooseCountry():
         country = 'united_states'
         geopos = 'GLOBAL'
     
-    print(" The country is set to "+country)
+# Selection of a specific mode for each query
+def chooseMode():
+    # Mode Acquisition
+    mode_id = input("""Search Modes :
+    1. Trending Searches (real time)
+    2. Related Topics (up to 5 keywords)
+    3. Related Queries (up to 5 keywords)
+    4. Top Charts
+    5. Suggestions (related to a keyword)
+    Enter a mode number : """)
     
-# Mode Acquisition
-mode_id = input(" Do you wish to search by : Trending Searches (real time) = 1, Related Topics (up to 5 keywords) = 2, Top Charts = 3 ?")
+    if mode_id == '1':
+        chooseCountry()
+        print(pytrends.trending_searches(pn=country))
+    elif mode_id == '2' or mode_id == '3':
+        chooseCountry()
+        global geopos
+        if geopos == 'GLOBAL':
+            geopos = ''
+        kw_list = input("Enter up to 5 topics (separated by space) for search ").split()
+        pytrends.build_payload(kw_list, cat=0, timeframe='today 5-y', geo=geopos, gprop='')
+        if mode_id == '2':
+            print(pytrends.related_topics())
+        else :
+            print(pytrends.related_queries())
+    elif mode_id == '4':
+        chooseCountry()
+        year = input("Choose a specific year after 2010, excluding the current one (format => YYYY) ")
+        print(pytrends.top_charts(year, hl='en-US', tz=300, geo=geopos))
+    else :
+        keyword = input("Enter the keyword to get suggestions for ")
+        print(pytrends.suggestions(keyword))
 
-kw_list = ["audi"]
+#chooseMode()
 
-chooseCountry()
+#print(pytrends.suggestions('football'))
 
-print(" The country is set to "+country)
-listTrends(country)
-
-#print(pytrends.top_charts('2021', hl='en-US', tz=300, geo='GLOBAL'))
-buildPayload(kw_list, '')
-print(pytrends.related_topics())
 #print(pytrends.categories())
 
