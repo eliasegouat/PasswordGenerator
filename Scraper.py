@@ -29,35 +29,41 @@ def selectCountry():
     return country_list[int(country_id)]
     
 # Query Selection
-def selectQuery():
+def selectQuery(country):
 
     query_id = input("""Select a query :
     1. Trending Searches (real time, 20 values)
-    2. Related Topics (up to 5 keywords)
+    2. Related Topics (Up to 5 keywords)
     3. Related Queries (up to 5 keywords)
     4. Top Charts
     5. Suggestions (related to a keyword)
     Enter the query number : """)
     
-    country = selectCountry()
-    
     if query_id == '1':
-        print(pytrends.trending_searches(pn=country[0]))
+        query = pytrends.trending_searches(pn=country[0])
+        result = query[0].tolist()
     elif query_id == '2':
         kw_list = input("Enter up to 5 topics (separated by space) for search : ").split()
         pytrends.build_payload(kw_list, cat=0, timeframe='today 5-y', geo=country[1], gprop='')
-        print(pytrends.related_topics())
+        query = pytrends.related_topics()
+        top = query[kw_list[0]]['top']['topic_title'].tolist()
+        rising = query[kw_list[0]]['rising']['topic_title'].tolist()
+        top.extend(rising)
+        result = list(set(top))
     elif query_id == '3':
         kw_list = input("Enter up to 5 topics (separated by space) for search : ").split()
         pytrends.build_payload(kw_list, cat=0, timeframe='today 5-y', geo=country[1], gprop='')
-        print(pytrends.related_queries())
+        result = pytrends.related_queries()
     elif query_id == '4':
         year = input("""Choose a specific year after 2010,
                         excluding the current one (format => YYYY) : """)
-        print(pytrends.top_charts(year, hl='en-US', tz=300, geo=country[1]))
+        result = pytrends.top_charts(year, hl='en-US', tz=300, geo=country[1])
     else :
         keyword = input("Enter a keyword : ")
         print(pytrends.suggestions(keyword))
+    return result
 
-selectQuery()
+country = selectCountry()
+res = selectQuery(country)
+print(res)
 
