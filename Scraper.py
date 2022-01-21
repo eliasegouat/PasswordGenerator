@@ -94,9 +94,23 @@ def selectQuery():
         result = selectRelatedQueries()
     elif query_id == '4':
         result = selectTopCharts()
-    else :
+    elif query_id == '4':
         result = selectSuggestions()
+    else :
+        print("Select a valid query number")
+        result = selectQuery()
     return result
+
+# Wordlist Writting to a file
+def toFile(wordlist):
+    response = input("Save the wordlist in a text file ? (yes|no) : ")
+    if response == 'yes' or response == 'y':
+        file_name = input("Enter a filename : ")
+        with open(file_name+'.txt', mode='w', encoding='utf-8') as f:
+            for word in wordlist:
+                f.write(word)
+                f.write('\n')
 
 res = selectQuery()
 print(res)
+toFile(res)
