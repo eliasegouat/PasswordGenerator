@@ -1,4 +1,3 @@
-from unittest import result
 from pytrends.request import TrendReq
 
 # Google Connection
