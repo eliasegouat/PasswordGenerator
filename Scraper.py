@@ -1,74 +1,63 @@
 from pytrends.request import TrendReq
 
-# Google connection
+# Google Connection
 pytrends = TrendReq(hl='en-US', tz=360, retries=2, timeout=(10,25))
 
-# Selection of a specific country for search
-def chooseCountry():
-    # Country definition
-    global country, geopos
-    
-    # Country Acquisition
-    country_id = input("""Countries :
-    1. France
-    2. USA
-    3. Japan
-    4. Russia
-    5. Global
-    Enter a country number : """)
+# Country Selection
+def selectCountry():
 
-    if country_id == '1':
-        country = 'france'
-        geopos = 'FR'
-    elif country_id == '2':
-        country = 'united_states'
-        geopos = 'US'
-    elif country_id == '3':
-        country = 'japan'
-        geopos = 'JP'
-    elif country_id == '4':
-        country = 'russia'
-        geopos  = 'RU'
-    else :
-        country = 'united_states'
-        geopos = 'GLOBAL'
+    country_list = [['argentina','AR'],['australia','AU'],['austria','AT'],['belgium','BE'],
+                    ['brazil','BR'],['canada','CA'],['chile','CL'],['colombia','CO'],
+                    ['czech_republic','CZ'],['denmark','DK'],['egypt','EG'],['finland','FI'],
+                    ['france','FR'],['germany','DE'],['greece','GR'],['hong_kong','HK'],
+                    ['hungary','HU'],['india','IN'],['indonesia','ID'],['ireland','IE'],
+                    ['israel','IL'],['italy','IT'],['japan','JP'],['kenya','KE'],
+                    ['malaysia','MY'],['mexico','MX'],['netherlands','NL'],['new zealand','NZ'],
+                    ['nigeria','NG'],['norway','NO'],['philippines','PH'],['poland','PL'],
+                    ['portugal','PT'],['romania','RO'],['russia','RU'],['saudi_arabia','SA'],
+                    ['singapore','SG'],['south_africa','ZA'],['south_korea','KR'],
+                    ['sweden','SE'],['switzerland','CH'],['taiwan','TW'],
+                    ['thailand','TH'],['turkey','TR'],['ukraine','UA'],['united_kingdom','GB'],
+                    ['united_states','US'],['vietnam','VN']]
+
+    output_str = "Select a country : \n"
+    for country in country_list :
+        output_str += '    '+str(country_list.index(country))+'. '+country[0]+'\n'
+    output_str+= "Enter the country number : "
+    country_id = input(output_str)
+
+    return country_list[int(country_id)]
     
-# Selection of a specific mode for each query
-def chooseMode():
-    # Mode Acquisition
-    mode_id = input("""Search Modes :
-    1. Trending Searches (real time)
+# Query Selection
+def selectQuery():
+
+    query_id = input("""Select a query :
+    1. Trending Searches (real time, 20 values)
     2. Related Topics (up to 5 keywords)
     3. Related Queries (up to 5 keywords)
     4. Top Charts
     5. Suggestions (related to a keyword)
-    Enter a mode number : """)
+    Enter the query number : """)
     
-    if mode_id == '1':
-        chooseCountry()
-        print(pytrends.trending_searches(pn=country))
-    elif mode_id == '2' or mode_id == '3':
-        chooseCountry()
-        global geopos
-        if geopos == 'GLOBAL':
-            geopos = ''
-        kw_list = input("Enter up to 5 topics (separated by space) for search ").split()
-        pytrends.build_payload(kw_list, cat=0, timeframe='today 5-y', geo=geopos, gprop='')
-        if mode_id == '2':
-            print(pytrends.related_topics())
-        else :
-            print(pytrends.related_queries())
-    elif mode_id == '4':
-        chooseCountry()
-        year = input("Choose a specific year after 2010, excluding the current one (format => YYYY) ")
-        print(pytrends.top_charts(year, hl='en-US', tz=300, geo=geopos))
+    country = selectCountry()
+    
+    if query_id == '1':
+        print(pytrends.trending_searches(pn=country[0]))
+    elif query_id == '2':
+        kw_list = input("Enter up to 5 topics (separated by space) for search : ").split()
+        pytrends.build_payload(kw_list, cat=0, timeframe='today 5-y', geo=country[1], gprop='')
+        print(pytrends.related_topics())
+    elif query_id == '3':
+        kw_list = input("Enter up to 5 topics (separated by space) for search : ").split()
+        pytrends.build_payload(kw_list, cat=0, timeframe='today 5-y', geo=country[1], gprop='')
+        print(pytrends.related_queries())
+    elif query_id == '4':
+        year = input("""Choose a specific year after 2010,
+                        excluding the current one (format => YYYY) : """)
+        print(pytrends.top_charts(year, hl='en-US', tz=300, geo=country[1]))
     else :
-        keyword = input("Enter the keyword to get suggestions for ")
+        keyword = input("Enter a keyword : ")
         print(pytrends.suggestions(keyword))
 
-#chooseMode()
-
-#print(pytrends.suggestions('football'))
-
-#print(pytrends.categories())
+selectQuery()
 
