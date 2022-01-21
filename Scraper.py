@@ -94,7 +94,7 @@ def selectQuery():
         result = selectRelatedQueries()
     elif query_id == '4':
         result = selectTopCharts()
-    elif query_id == '4':
+    elif query_id == '5':
         result = selectSuggestions()
     else :
         print("Select a valid query number")
