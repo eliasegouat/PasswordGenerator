@@ -6,4 +6,4 @@ Trendlist Generator is a couple of scripts tools that aims to generate fresh wor
 
 Is the first script of the **PasswordGenerator** Stack. 
 
-Compatible seulement pour python3 et posterieur
+Compatible seulement pour python3 et posterieur (la fonction input n'est pas retrocompatible, utiliser raw_input pour les anciennes versions)
