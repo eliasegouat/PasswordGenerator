@@ -5,3 +5,5 @@ Trendlist Generator is a couple of scripts tools that aims to generate fresh wor
 ## Scraper.py
 
 Is the first script of the **PasswordGenerator** Stack. 
+
+Compatible seulement pour python3 et posterieur
