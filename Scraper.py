@@ -104,12 +104,13 @@ def selectQuery():
 # Wordlist Writting to a file
 def toFile(wordlist):
     response = input("Save the wordlist in a text file ? (yes|no) : ")
-    if response == 'yes' or response == 'y':
+    if response == 'yes' or response == 'y' or response == 'YES' or response == 'Y':
         file_name = input("Enter a filename : ")
         with open(file_name+'.txt', mode='w', encoding='utf-8') as f:
             for word in wordlist:
                 f.write(word)
-                f.write('\n')
+                if word != wordlist[-1]:
+                    f.write('\n')
 
 res = selectQuery()
 print(res)
