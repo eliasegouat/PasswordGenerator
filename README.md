@@ -30,3 +30,14 @@ Is the first script of the **TrendListGenerator** Stack.
 
 The second script of the Stack.
 
+> ### Modes
+>
+> - Unique list
+> - Multiple lists
+> - Every lists
+
+> ### Rules
+>
+> - Inter word
+> - Special chars
+> - Lowercase
