@@ -1,9 +1,19 @@
 # TrendListGenerator
 
-Trendlist Generator is a couple of scripts tools that aims to generate fresh wordlists. It can be used to collect data from **Google Trends** thanks to the **pytrends** API and to deduce password lists from it. 
+Trendlist Generator is a couple of scripts tools that aims to generate fresh wordlists. It can be used to collect data from **Google Trends** thanks to the **pytrends** API and to deduce password lists from it.
+
+## Pytrends
+https://github.com/GeneralMills/pytrends
+https://pypi.org/project/pytrends/
 
 ## Scraper.py
 
 Is the first script of the **PasswordGenerator** Stack. 
 
-Compatible seulement pour python3 et posterieur (la fonction input n'est pas retrocompatible, utiliser raw_input pour les anciennes versions)
+
+## Mixer.py
+
+The second script of the Stack.
+
+
+Only compatible python3 and later(the input fonction isn't backward compatible, use raw_input for older versions)
