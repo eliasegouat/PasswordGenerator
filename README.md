@@ -6,6 +6,14 @@ Trendlist Generator is a couple of scripts tools that aims to generate fresh wor
 https://github.com/GeneralMills/pytrends  
 https://pypi.org/project/pytrends/
 
+### Install
+
+pip install pytrends
+
+### Requirement
+
+Written for Python 3.3+
+
 ## Scraper.py
 
 Is the first script of the **TrendListGenerator** Stack. 
@@ -15,5 +23,3 @@ Is the first script of the **TrendListGenerator** Stack.
 
 The second script of the Stack.
 
-
-Only compatible python3 and later(the input fonction isn't backward compatible, use raw_input for older versions)
