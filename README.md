@@ -18,6 +18,13 @@ Written for Python 3.3+
 
 Is the first script of the **TrendListGenerator** Stack. 
 
+> ### Queries
+>
+> - Trending Searches
+> - Related Topics
+> - Related Queries
+> - Top Charts
+> - Suggestions
 
 ## Mixer.py
 
