@@ -8,15 +8,15 @@ https://pypi.org/project/pytrends/
 
 ### Install
 
-pip install pytrends
+`pip install pytrends`
 
 ### Requirement
 
-Written for Python 3.3+
+Written for `Python 3.3+`
 
 ## Scraper.py
 
-Is the first script of the **TrendListGenerator** Stack. Can be use to crawl trending key words with parametered queries through pytrends api. 
+Is the first script of the **TrendListGenerator** Stack. Can be use to `crawl` trending key words with parametered queries through pytrends api. 
 
 First input a country number from the query compatible coutries list: https://trends.google.com/trends/hottrends/visualize/internal/data shown on your terminal. Then input a query number and parameters if necessary to get the wordlist output. Finally you can save the list in a file.
 
@@ -30,7 +30,7 @@ First input a country number from the query compatible coutries list: https://tr
 
 ## Mixer.py
 
-The second script of the Stack. Can be used to apply rules on the crawled wordlist to extend the passwords patterns.
+The second script of the Stack. Can be used to apply `rules` on the crawled wordlist to extend the passwords patterns.
 
 First you have to open a wordlist by typing its location from the project's directory. Then you have to choose a mode number and a rules numbers list to output the expanded wordlist.
 
